@@ -1,13 +1,19 @@
 package com.zhaofeng.bookkeeping.mainactivity;
 
 import android.content.res.Resources;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
 
 import com.zhaofeng.bookkeeping.R;
 import com.zhaofeng.bookkeeping.other.OtherFragment;
@@ -34,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     ViewPagerIndicator viewPagerIndicator;
     @BindView(R.id.main_viewpager)
     ViewPager viewPager;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawerLayout;
+    @BindView(R.id.main_navigation)
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         mainPresenter=new MainPresenter(this);
         mainPresenter.start();
+        mainPresenter.startDrawerContent(drawerLayout,navigationView);
     }
 
     @Override
@@ -95,5 +106,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             }
         });
 
+    }
+
+    @Override
+    public void setupDrawerContent(DrawerLayout drawerLayout,NavigationView navigationView) {
+        if(navigationView!=null)
+        {
+            final ActionBar ab=getSupportActionBar();
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            ab.setDisplayHomeAsUpEnabled(true);
+            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem item) {
+                    return false;
+                }
+            });
+        }
     }
 }

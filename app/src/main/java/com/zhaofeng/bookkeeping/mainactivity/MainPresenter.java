@@ -1,6 +1,8 @@
 package com.zhaofeng.bookkeeping.mainactivity;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
 
 /**
  * Created by zhaofeng on 16/5/19.
@@ -17,5 +19,10 @@ public class MainPresenter implements MainContract.Presenter
     @Override
     public void start() {
         view.addFragment();
+    }
+
+    @Override
+    public void startDrawerContent(DrawerLayout drawerLayout,NavigationView navigationView) {
+        view.setupDrawerContent(drawerLayout,navigationView);
     }
 }

@@ -15,4 +15,7 @@
     <string name="fragment_thismonth">本月</string>
     <string name="fragment_statistics">统计</string>
     <string name="fragment_other">其它</string>
+
+    <string name="drawer_open">打开</string>
+    <string name="drawer_close">关闭</string>
 </resources>
