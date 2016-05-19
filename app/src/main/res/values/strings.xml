@@ -1,3 +1,18 @@
 <resources>
-    <string name="app_name">Bookkeeping</string>
+    <string name="app_name">记账</string>
+    <string name="entertainment">娱乐</string>
+    <string name="Transport">交通</string>
+    <string name="Food">食物</string>
+    <string name="Daily">日常</string>
+    <string name="Advance">提升</string>
+    <string name="Other">其它</string>
+    <string name="Crash">现金</string>
+    <string name="DebitCard">借记卡</string>
+    <string name="AliPay">支付宝</string>
+    <string name="WeChatPay">微信支付</string>
+    <string name="CreditCard">信用卡</string>
+
+    <string name="fragment_thismonth">本月</string>
+    <string name="fragment_statistics">统计</string>
+    <string name="fragment_other">其它</string>
 </resources>
