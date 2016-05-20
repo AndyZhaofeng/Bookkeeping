@@ -2,16 +2,18 @@ package com.zhaofeng.bookkeeping.data.model;
 
 import java.io.Serializable;
 
+import cn.bmob.v3.BmobObject;
+
 /**
  * Created by zhaofeng on 16/5/19.
  * 单笔消费详情
  */
-public class BillModel implements Serializable
+public class BillModel extends BmobObject implements Serializable
 {
     private String conData;             //消费日期
-    private ConsumeType consumeType;    //消费类型
-    private PayTypeModel payTypeModel;  //支付类型
-    private double consumeAmount;       //支付金额
+    private Integer consumeType;    //消费类型----对应ConsumeType枚举类型
+    private Integer payTypeModel;  //支付类型-----对应PayTypeModel枚举类型
+    private Double consumeAmount;       //支付金额
     private String consumeDetail;       //详细
 
     public String getConData() {
@@ -22,27 +24,27 @@ public class BillModel implements Serializable
         this.conData = conData;
     }
 
-    public ConsumeType getConsumeType() {
+    public Integer getConsumeType() {
         return consumeType;
     }
 
-    public void setConsumeType(ConsumeType consumeType) {
+    public void setConsumeType(Integer consumeType) {
         this.consumeType = consumeType;
     }
 
-    public PayTypeModel getPayTypeModel() {
+    public Integer getPayTypeModel() {
         return payTypeModel;
     }
 
-    public void setPayTypeModel(PayTypeModel payTypeModel) {
+    public void setPayTypeModel(Integer payTypeModel) {
         this.payTypeModel = payTypeModel;
     }
 
-    public double getConsumeAmount() {
+    public Double getConsumeAmount() {
         return consumeAmount;
     }
 
-    public void setConsumeAmount(double consumeAmount) {
+    public void setConsumeAmount(Double consumeAmount) {
         this.consumeAmount = consumeAmount;
     }
 

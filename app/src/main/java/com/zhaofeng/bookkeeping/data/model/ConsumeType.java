@@ -13,13 +13,22 @@ import java.io.Serializable;
  */
 public enum ConsumeType implements Serializable
 {
-    Entertainment,  //娱乐
-    Transport,      //交易
-    Food,           //食物
-    Daily,          //日常
-    Advance,        //提升
-    Others;         //其它
+    Entertainment(0),  //娱乐
+    Transport(1),      //交易
+    Food(2),           //食物
+    Daily(3),          //日常
+    Advance(4),        //提升
+    Others(5);         //其它
 
+    private Integer integer;
+    private ConsumeType(Integer i)
+    {
+        integer=i;
+    }
+    public Integer getInteger()
+    {
+        return integer;
+    }
     /**
      * 传入上下文，输出当前枚举类型对应的文字
      * @param context

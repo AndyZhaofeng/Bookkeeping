@@ -14,8 +14,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.zhaofeng.bookkeeping.R;
+import com.zhaofeng.bookkeeping.data.model.BillModel;
+import com.zhaofeng.bookkeeping.data.model.ConsumeType;
+import com.zhaofeng.bookkeeping.data.model.PayTypeModel;
 import com.zhaofeng.bookkeeping.other.OtherFragment;
 import com.zhaofeng.bookkeeping.statistics.StatisticsFragment;
 import com.zhaofeng.bookkeeping.thismonth.ThisMonthFragment;
@@ -27,6 +31,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.listener.SaveListener;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View
 {
@@ -52,9 +58,28 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         ButterKnife.bind(this);
         mainContract=this;
 
+        Bmob.initialize(this,"d68caa5de12d378e0b7f680db0008a41");
         mainPresenter=new MainPresenter(this);
         mainPresenter.start();
         mainPresenter.startDrawerContent(drawerLayout,navigationView);
+
+        BillModel model=new BillModel();
+        model.setConData("2016-05-20");
+        model.setConsumeAmount(50.00);
+        model.setConsumeDetail("得瑟");
+        model.setConsumeType(ConsumeType.Daily.getInteger());
+        model.setPayTypeModel(PayTypeModel.CreditCard.getInteger());
+        model.save(this, new SaveListener() {
+            @Override
+            public void onSuccess() {
+                Toast.makeText(MainActivity.this,"成功",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

@@ -12,13 +12,22 @@ import java.io.Serializable;
  */
 public enum PayTypeModel implements Serializable
 {
-    Crash,      //现金
-    DebitCard,  //借记卡
-    AliPay,     //支付宝
-    WeChatPay,  //微信支付
-    CreditCard, //现金支付
-    Other;      //其它
+    Crash(0),      //现金
+    DebitCard(1),  //借记卡
+    AliPay(2),     //支付宝
+    WeChatPay(3),  //微信支付
+    CreditCard(4), //现金支付
+    Other(5);      //其它
 
+    private Integer integer;
+    private PayTypeModel(Integer integer)
+    {
+        this.integer=integer;
+    }
+    public Integer getInteger()
+    {
+        return integer;
+    }
     public String getString(Context context)
     {
         Resources resources=context.getResources();
