@@ -76,9 +76,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void addFragment() {
         Resources res=getResources();
+        String thisMonthStr=res.getString(R.string.fragment_thismonth);
+        String statisticStr=res.getString(R.string.fragment_statistics);
+        String otherStr=res.getString(R.string.fragment_other);
         viewPagerIndicator.setVisibleTabs(3);
-        Observable.from(Arrays.asList(res.getString(R.string.fragment_thismonth),
-                res.getString(R.string.fragment_statistics),res.getString(R.string.fragment_other)))
+        Observable.from(Arrays.asList(thisMonthStr,statisticStr,otherStr))
                 .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<String>() {
                     @Override
@@ -97,9 +99,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         viewPagerIndicator.addTab(s);
                     }
                 });
-        mFragments=Arrays.asList(StatisticsFragment.newInstance(res.getString(R.string.fragment_statistics)),
-                ThisMonthFragment.newInstance(res.getString(R.string.fragment_thismonth)),
-                OtherFragment.newInstance(res.getString(R.string.fragment_other)));
+        mFragments=Arrays.asList(ThisMonthFragment.newInstance(thisMonthStr),
+                StatisticsFragment.newInstance(statisticStr),
+                OtherFragment.newInstance(otherStr));
         fragmentPagerAdapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
