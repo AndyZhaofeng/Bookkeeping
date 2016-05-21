@@ -62,24 +62,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mainPresenter=new MainPresenter(this);
         mainPresenter.start();
         mainPresenter.startDrawerContent(drawerLayout,navigationView);
-
-        BillModel model=new BillModel();
-        model.setConData("2016-05-20");
-        model.setConsumeAmount(50.00);
-        model.setConsumeDetail("得瑟");
-        model.setConsumeType(ConsumeType.Daily.getInteger());
-        model.setPayTypeModel(PayTypeModel.CreditCard.getInteger());
-        model.save(this, new SaveListener() {
-            @Override
-            public void onSuccess() {
-                Toast.makeText(MainActivity.this,"成功",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                Toast.makeText(MainActivity.this,s,Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     @Override
