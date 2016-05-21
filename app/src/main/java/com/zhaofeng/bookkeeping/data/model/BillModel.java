@@ -8,7 +8,7 @@ import cn.bmob.v3.BmobObject;
  * Created by zhaofeng on 16/5/19.
  * 单笔消费详情
  */
-public class BillModel extends BmobObject implements Serializable
+public class BillModel extends BmobObject
 {
     private String conData;             //消费日期
     private Integer consumeType;    //消费类型----对应ConsumeType枚举类型

@@ -33,6 +33,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.listener.SaveListener;
+import rx.Observable;
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View
 {
@@ -40,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private MainContract.View mainContract;
     private FragmentPagerAdapter fragmentPagerAdapter;
     private List<Fragment> mFragments=new ArrayList<>();
-    private List<String> mTitles;
 
     @BindView(R.id.main_indicator)
     ViewPagerIndicator viewPagerIndicator;
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mainContract=this;
 
         Bmob.initialize(this,"d68caa5de12d378e0b7f680db0008a41");
-        mainPresenter=new MainPresenter(this);
+        mainPresenter=new MainPresenter(mainContract);
         mainPresenter.start();
         mainPresenter.startDrawerContent(drawerLayout,navigationView);
     }
@@ -72,15 +76,30 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void addFragment() {
         Resources res=getResources();
-        mTitles= Arrays.asList(res.getString(R.string.fragment_thismonth),
-                res.getString(R.string.fragment_statistics),
-                res.getString(R.string.fragment_other));
-        StatisticsFragment statisticsFragment=StatisticsFragment.newInstance(res.getString(R.string.fragment_statistics));
-        ThisMonthFragment thisMonthFragment=ThisMonthFragment.newInstance(res.getString(R.string.fragment_thismonth));
-        OtherFragment otherFragment=OtherFragment.newInstance(res.getString(R.string.fragment_other));
-        mFragments.add(thisMonthFragment);
-        mFragments.add(statisticsFragment);
-        mFragments.add(otherFragment);
+        viewPagerIndicator.setVisibleTabs(3);
+        Observable.from(Arrays.asList(res.getString(R.string.fragment_thismonth),
+                res.getString(R.string.fragment_statistics),res.getString(R.string.fragment_other)))
+                .subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<String>() {
+                    @Override
+                    public void onCompleted() {
+                        viewPager.setAdapter(fragmentPagerAdapter);
+                        viewPagerIndicator.setViewPager(viewPager);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(String s) {
+                        viewPagerIndicator.addTab(s);
+                    }
+                });
+        mFragments=Arrays.asList(StatisticsFragment.newInstance(res.getString(R.string.fragment_statistics)),
+                ThisMonthFragment.newInstance(res.getString(R.string.fragment_thismonth)),
+                OtherFragment.newInstance(res.getString(R.string.fragment_other)));
         fragmentPagerAdapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
@@ -92,10 +111,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                 return mFragments.size();
             }
         };
-        viewPagerIndicator.setVisibleTabs(3);
-        viewPagerIndicator.addTabs(mTitles);
-        viewPager.setAdapter(fragmentPagerAdapter);
-        viewPagerIndicator.setViewPager(viewPager);
         viewPagerIndicator.setViewPagerListener(new ViewPagerIndicator.ViewPagerListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
