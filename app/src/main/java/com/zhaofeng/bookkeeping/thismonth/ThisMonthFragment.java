@@ -12,7 +12,7 @@ import com.zhaofeng.bookkeeping.R;
 /**
  * Created by zhaofeng on 16/5/19.
  */
-public class ThisMonthFragment extends Fragment
+public class ThisMonthFragment extends Fragment implements ThisMonthContract.View
 {
     public static final String ARGS="ThisMonthFragment";
 

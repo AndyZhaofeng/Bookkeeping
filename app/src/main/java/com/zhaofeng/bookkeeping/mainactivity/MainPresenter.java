@@ -14,7 +14,6 @@ public class MainPresenter implements MainContract.Presenter
     public MainPresenter(@NonNull MainContract.View view)
     {
         this.view=view;
-        view.setPresenter(this);
     }
     @Override
     public void start() {

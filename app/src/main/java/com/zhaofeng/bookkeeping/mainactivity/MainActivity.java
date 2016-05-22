@@ -42,7 +42,6 @@ import rx.schedulers.Schedulers;
 public class MainActivity extends AppCompatActivity implements MainContract.View
 {
     private MainPresenter mainPresenter;
-    private MainContract.View mainContract;
     private FragmentPagerAdapter fragmentPagerAdapter;
     private List<Fragment> mFragments=new ArrayList<>();
 
@@ -60,17 +59,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        mainContract=this;
 
         Bmob.initialize(this,"d68caa5de12d378e0b7f680db0008a41");
-        mainPresenter=new MainPresenter(mainContract);
+        mainPresenter=new MainPresenter(this);
         mainPresenter.start();
         mainPresenter.startDrawerContent(drawerLayout,navigationView);
-    }
-
-    @Override
-    public void setPresenter(MainContract.Presenter presenter) {
-
     }
 
     @Override
@@ -136,15 +129,21 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void setupDrawerContent(DrawerLayout drawerLayout,NavigationView navigationView) {
         if(navigationView!=null)
         {
-            final ActionBar ab=getSupportActionBar();
-            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
-            ab.setDisplayHomeAsUpEnabled(true);
-            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(MenuItem item) {
-                    return false;
-                }
-            });
+            try{
+                final ActionBar ab=getSupportActionBar();
+                ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+                ab.setDisplayHomeAsUpEnabled(true);
+                navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        return false;
+                    }
+                });
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+
         }
     }
 }
