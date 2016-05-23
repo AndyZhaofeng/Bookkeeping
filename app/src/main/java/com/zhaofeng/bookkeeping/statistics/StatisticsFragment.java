@@ -12,7 +12,7 @@ import com.zhaofeng.bookkeeping.R;
 /**
  * Created by zhaofeng on 16/5/19.
  */
-public class StatisticsFragment extends Fragment
+public class StatisticsFragment extends Fragment implements StatisticsContract.View
 {
     public static final String ARGS="StatisticsFragment";
 

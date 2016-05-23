@@ -13,7 +13,7 @@ import com.zhaofeng.bookkeeping.mainactivity.MainContract;
 /**
  * Created by zhaofeng on 16/5/19.
  */
-public class OtherFragment extends Fragment
+public class OtherFragment extends Fragment implements OtherContract.View
 {
     public static final String ARGS="OtherFragment";
 
