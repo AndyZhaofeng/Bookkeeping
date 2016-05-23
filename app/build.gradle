@@ -44,4 +44,6 @@ dependencies {
     compile 'com.squareup.okio:okio:1.7.0'
     //注：3.4.7的SDK将数据的加解密实现转移到了底层so中，请务必导入libbmob.so，否则无法使用SDK。
 
+    compile 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+
 }

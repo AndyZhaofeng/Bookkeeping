@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 {
     private MainPresenter mainPresenter;
     private FragmentPagerAdapter fragmentPagerAdapter;
-    private List<Fragment> mFragments=new ArrayList<>();
+    private ArrayList<Fragment> mFragments=new ArrayList<>();
 
     @BindView(R.id.main_indicator)
     ViewPagerIndicator viewPagerIndicator;
@@ -92,9 +92,12 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         viewPagerIndicator.addTab(s);
                     }
                 });
-        mFragments=Arrays.asList(ThisMonthFragment.newInstance(thisMonthStr),
-                StatisticsFragment.newInstance(statisticStr),
-                OtherFragment.newInstance(otherStr));
+        ThisMonthFragment thisMonthFragment=ThisMonthFragment.newInstance(thisMonthStr);
+        StatisticsFragment statisticsFragment=StatisticsFragment.newInstance(statisticStr);
+        OtherFragment otherFragment=OtherFragment.newInstance(otherStr);
+        mFragments.add(thisMonthFragment);
+        mFragments.add(statisticsFragment);
+        mFragments.add(otherFragment);
         fragmentPagerAdapter=new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
